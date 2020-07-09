@@ -1,51 +1,59 @@
 const initialState = {
   servers: [],
   tasks: [],
-  nextId: 0,
+  nextId: 1,
 };
 
-const taskManager = (state = initialState, action) => {
+export const taskManager = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_SERVER':
-      newServer = {
+      let newServer = {
         index: state.nextId,
         serverAvailable: true,
+        taskProgress: 0,
       };
-
       return {
         ...state,
-        servers: [...servers, newServer],
-        nextId: nextId + 1,
+        servers: [...state.servers, newServer],
+        nextId: state.nextId + 1,
+      };
+    case 'ALLOCATE_SERVER':
+      let server = state.servers.filter(
+        (itrServer) => itrServer.index === action.payload.index
+      );
+      server.serverAvailable = false;
+      state.servers.splice(index, 1);
+      return {
+        ...state,
+        servers: [...state.servers, server],
+      };
+    case 'REMOVE_SERVER':
+      let index = action.payload;
+      state.servers.splice(index, 1);
+      return {
+        ...state,
+        servers: [...state.servers],
       };
 
     case 'ADD_TASK':
-      newTask = {
+      let newTask = {
         index: state.nextId,
         taskCompleted: false,
+        progress: 0,
+        serverAllocated: action.payload.serverAllocated,
       };
-
       return {
         ...state,
-        tasks: [...tasks, newTask],
-        nextId: nextId + 1,
+        tasks: [...state.tasks, newTask],
+        nextId: state.nextId + 1,
       };
 
     case 'REMOVE_TASK':
-      const index = action.payload;
-      state.tasks.splice(index, 1);
+      state.tasks.splice(action.payload, 1);
 
       return {
         ...state,
         tasks: [...state.tasks],
-      };
-
-    case 'REMOVE_SERVER':
-      const index = action.payload;
-      state.servers.splice(index, 1);
-
-      return {
-        ...state,
-        servers: [...state.servers],
       };
 
     default:

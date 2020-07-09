@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function SunChart() {
+export default function Tasks() {
   return <div></div>;
 }

@@ -1,6 +1,4 @@
-export { default as Chart } from './Chart/Chart';
-export { default as Conditions } from './Conditions/Conditions';
-export { default as DaysWeather } from './DaysWeather/DaysWeather';
-export { default as SearchBar } from './SearchBar/SearchBar';
-export { default as Summary } from './Summary/Summary';
-export { default as SunChart } from './SunChart/SunChart';
+export { default as Server } from './Server/Server';
+export { default as Servers } from './Servers/Servers';
+export { default as Task } from './Task/Task';
+export { default as Tasks } from './Tasks/Tasks';

@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function DaysWeather() {
+export default function Task() {
   return <div></div>;
 }

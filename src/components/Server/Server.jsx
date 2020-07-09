@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function Chart() {
+export default function Server() {
   return <div></div>;
 }

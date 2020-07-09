@@ -12,12 +12,12 @@ export default function Server({ server }) {
     });
   };
   return (
-    <>
-      <li key={server.index}></li>
-      <i class='fa fa-laptop' aria-hidden='true'></i>
+    <li className='list-group-item'>
+      <i className='fa fa-laptop' aria-hidden='true'></i>
+
       {server.serverAvailable ? (
         <>
-          Available
+          <span>Available</span>
           <button
             className='btn btn-sm btn-danger'
             onClick={(e) => removeServer(e)}
@@ -26,8 +26,8 @@ export default function Server({ server }) {
           </button>
         </>
       ) : (
-        <li>Not available</li>
+        <span>Not available</span>
       )}
-    </>
+    </li>
   );
 }

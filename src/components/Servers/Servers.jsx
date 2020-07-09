@@ -9,13 +9,13 @@ export default function Servers() {
     <div className='container'>Please add atleast one server</div>
   ) : (
     <div className='row'>
-      <ul styles={{ display: 'flex' }}>
-        {servers.map((server, index) => (
-          <div className='col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-2'>
+      <div className='col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-2'>
+        <ul className='list-group d-flex justify-content-between'>
+          {servers.map((server, index) => (
             <Server server={server} key={index} />
-          </div>
-        ))}
-      </ul>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

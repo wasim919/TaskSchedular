@@ -13,7 +13,7 @@ export default function AddTask() {
     if (availableServers.length !== 0) {
       allocatedServerIndex = availableServers[0];
       dispatch({
-        actions: 'ALLOCATE_SERVER',
+        type: 'ALLOCATE_SERVER',
         payload: {
           index: allocatedServerIndex,
         },

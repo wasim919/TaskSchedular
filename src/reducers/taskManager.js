@@ -22,7 +22,7 @@ export const taskManager = (state = initialState, action) => {
         (itrServer) => itrServer.index === action.payload.index
       );
       server.serverAvailable = false;
-      state.servers.splice(index, 1);
+      state.servers.splice(action.payload.index, 1);
       return {
         ...state,
         servers: [...state.servers, server],

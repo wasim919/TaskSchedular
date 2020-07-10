@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 
-export default function AddTask({ onAddTaskChange, tasks, servers, addTask }) {
+export default function AddTask({
+  onAddTaskChange,
+  tasks,
+  servers,
+  addTask,
+  modifyTasks,
+}) {
   // const dispatchToStore = (i) => {
   //   dispatch({
   //     type: 'ALLOCATE_SERVER',
@@ -16,10 +21,9 @@ export default function AddTask({ onAddTaskChange, tasks, servers, addTask }) {
   //     },
   //   });
   // };
+
   const addTaskHere = (e) => {
     addTask(e);
-    console.log(tasks.length);
-    tasks.map((task) => console.log(task));
   };
 
   return (

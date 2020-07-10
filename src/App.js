@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AddServer, Servers, Tasks, AddTask } from './components';
 import styles from './App.css';
 
@@ -8,6 +8,58 @@ function App() {
   const [serverCount, setServerCount] = useState(0);
   const [nTasks, setNTasks] = useState(0);
   const [taskCount, setTaskCount] = useState(0);
+
+  const runTasks = (taskQueue) => {
+    for (let i = 1; i <= 20; ++i) {
+      setTimeout(() => {
+        for (let j = 0; j < taskQueue.length; ++j) {
+          taskQueue[j].progress += 5;
+        }
+      }, 1000);
+    }
+  };
+
+  const runTasksFCFS = (availableServers) => {
+    let taskQueue = [];
+    let j = 0;
+    let flag = 0;
+    while (true) {
+      for (let i = 0; i < tasks.length; ) {
+        while (j < availableServers.length) {
+          taskQueue.push(tasks[i]);
+          ++i;
+          ++j;
+          if (i === tasks.length) {
+            flag = 1;
+            break;
+          }
+        }
+        runTasks(taskQueue);
+        taskQueue = [];
+        j = 0;
+        if (flag) {
+          break;
+        }
+      }
+      if (flag) {
+        break;
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (tasks.length > 0) {
+      let availableServers = servers.filter(
+        (server) => server.available === true
+      );
+      if (tasks.length <= availableServers.length) {
+        runTasks(tasks);
+      } else {
+        console.log('hello');
+        runTasksFCFS(availableServers);
+      }
+    }
+  }, [tasks]);
 
   const addServer = (e) => {
     if (servers.length >= 10) {
@@ -31,56 +83,23 @@ function App() {
     setTasks(newTasks);
   };
 
-  // const addTask = (e) => {
-  //   if (nTasks === 0) {
-  //     return;
-  //   }
-  // const availableServers = servers.filter(
-  //   (server, index) => server.available === true
-  // );
-  // if (availableServers.length >= tasks) {
-  //   console.log('hello');
-  //   for (let i = 1; i <= tasks; ++i) {
-  //     // dispatchToStore(i);
-  //     console.log('hello');
-  //   }
-  //   runTheTasks();
-  // } else {
-  //   let taskQueue = [];
-  //   let i;
-  //   for (i = 1; i <= availableServers.length; ++i) {
-  //     // dispatchToStore(i);
-  //   }
-  //   for (let j = i; j <= tasks; ++j) {
-  //     let taskItr = {
-  //       index: j,
-  //       taskCompleted: false,
-  //       progress: 0,
-  //       serverAllocated: -1,
-  //     };
-  //     taskQueue.push({
-  //       taskItr,
-  //     });
-  // dispatch({
-  //   type: 'ADD_TASK',
-  //   payload: {
-  //     serverAllocated: -1,
-  //   },
-  // });
-  // }
-  //   }
-  // };
+  const modifyTasks = (newTasks) => {
+    setTasks([...newTasks]);
+  };
 
   const addTask = () => {
     let tempTasks = [];
     let i;
     for (i = taskCount; i < taskCount + nTasks; ++i) {
-      tempTasks.push({ id: i, progress: 0, serverAlloted: -1 });
+      tempTasks.push({
+        id: i,
+        progress: 0,
+        taskCompleted: false,
+        serverAlloted: -1,
+      });
     }
     setTaskCount(i);
     setTasks([...tasks, ...tempTasks]);
-
-    runTasks();
   };
 
   const onAddTaskChange = (e) => {
@@ -88,16 +107,6 @@ function App() {
       return alert("Number of tasks can't be negative");
     }
     setNTasks(parseInt(e.target.value));
-  };
-
-  const runTasks = () => {
-    for (let i = 1; i <= 20; ++i) {
-      setTimeout(() => {
-        for (let j = 0; j < tasks.length; ++j) {
-          tasks[j].progress += j * 5;
-        }
-      }, 1000);
-    }
   };
 
   return (
@@ -111,6 +120,7 @@ function App() {
             tasks={tasks}
             servers={servers}
             onAddTaskChange={onAddTaskChange}
+            modifyTasks={modifyTasks}
           />
           <Tasks tasks={tasks} deleteTask={deleteTask} />
         </>

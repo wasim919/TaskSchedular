@@ -7,21 +7,6 @@ export default function AddTask({
   addTask,
   modifyTasks,
 }) {
-  // const dispatchToStore = (i) => {
-  //   dispatch({
-  //     type: 'ALLOCATE_SERVER',
-  //     payload: {
-  //       index: i,
-  //     },
-  //   });
-  //   dispatch({
-  //     type: 'ADD_TASK',
-  //     payload: {
-  //       serverAllocated: i,
-  //     },
-  //   });
-  // };
-
   const addTaskHere = (e) => {
     addTask(e);
   };

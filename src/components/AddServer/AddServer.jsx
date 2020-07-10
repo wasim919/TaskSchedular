@@ -1,23 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function AddServer() {
-  const dispatch = useDispatch();
-  const servers = useSelector((state) => state.taskManager.servers);
-
-  const addServer = (e) => {
-    if (servers.length >= 10) {
-      return (
-        <div className='alert alert-warning'>
-          You can't have more than 10 servers
-        </div>
-      );
-    }
-    dispatch({
-      type: 'ADD_SERVER',
-    });
-  };
-
+export default function AddServer({ servers, addServer }) {
   return (
     <div>
       {servers.length <= 9 ? (

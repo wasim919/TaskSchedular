@@ -1,26 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
-export default function Server({ server }) {
-  const dispatch = useDispatch();
-  const removeServer = (e) => {
-    dispatch({
-      type: 'REMOVE_SERVER',
-      payload: {
-        index: server.index,
-      },
-    });
-  };
+export default function Server({ server, deleteServer, index }) {
   return (
     <li className='list-group-item'>
       <i className='fa fa-laptop' aria-hidden='true'></i>
 
-      {server.serverAvailable ? (
+      {server.available ? (
         <>
           <span>Available</span>
           <button
             className='btn btn-sm btn-danger'
-            onClick={(e) => removeServer(e)}
+            onClick={() => deleteServer(index)}
           >
             Remove Server
           </button>
